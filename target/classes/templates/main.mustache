@@ -13,7 +13,7 @@
             </form>
         </div>
         <div>
-            <form method="post" acceptCharset="UTF-8" action="/">
+            <form method="post" acceptCharset="UTF-8" action="/addPolicy">
                 <input type="text" name="type" placeholder="Policy Type"/>
                 <input type="date" name="createdAt"/>
                 <button type="submit">Add policy</button>
@@ -22,7 +22,7 @@
         </div>
         <div>Policies list</div>
 
-        <form method="post" action="delete">
+        <form method="post" action="deleteAll">
             <button type="submit">Delete all</button>
             <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
         </form>
@@ -39,7 +39,7 @@
                 <td>{{type}}</td>
                 <td>{{createdAt}}</td>
                 <td>
-                    <form method="post" action="deletePolicy">
+                    <form method="post" action="deletePolicyById">
                         <input hidden="true" type="text" name="id" value="{{id}}"/>
                         <button type="submit">Delete</button>
                         <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>

@@ -2,7 +2,6 @@ package bg.blkn.smartins.controller;
 
 import bg.blkn.smartins.domain.Policy;
 import bg.blkn.smartins.repos.PolicyRepo;
-import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,8 +26,8 @@ public class MainController {
         return "main";
     }
 
-    @PostMapping(path ="/")
-    public String add(
+    @PostMapping(path ="/addPolicy")
+    public String addPolicy(
             @RequestParam String type,
             @RequestParam String createdAt,
             Map<String, Object> model) {
@@ -39,16 +38,16 @@ public class MainController {
         return "main";
     }
 
-    @PostMapping("/delete")
-    public String delete(Map<String, Object> model) {
+    @PostMapping("/deleteAll")
+    public String deleteAll(Map<String, Object> model) {
         policyRepo.deleteAll();
         Iterable<Policy> policies = policyRepo.findAll();
         model.put("policies", policies);
         return "main";
     }
 
-    @PostMapping("/deletePolicy")
-    public String deletePolicy(String id, Map<String, Object> model) {
+    @PostMapping("/deletePolicyById")
+    public String deletePolicyById(String id, Map<String, Object> model) {
         policyRepo.deleteById(UUID.fromString(id));
         Iterable<Policy> policies = policyRepo.findAll();
         model.put("policies", policies);
