@@ -1,6 +1,10 @@
+D:\JAVAPROJECTS\SmartINS\src\main\java\bg\blkn\smartins\domain\authorization\Role.java
 D:\JAVAPROJECTS\SmartINS\src\main\java\bg\blkn\smartins\Application.java
 D:\JAVAPROJECTS\SmartINS\src\main\java\bg\blkn\smartins\config\WebSecurityConfig.java
+D:\JAVAPROJECTS\SmartINS\src\main\java\bg\blkn\smartins\domain\authorization\User.java
 D:\JAVAPROJECTS\SmartINS\src\main\java\bg\blkn\smartins\config\MvcConfig.java
-D:\JAVAPROJECTS\SmartINS\src\main\java\bg\blkn\smartins\GreetingController.java
 D:\JAVAPROJECTS\SmartINS\src\main\java\bg\blkn\smartins\repos\PolicyRepo.java
+D:\JAVAPROJECTS\SmartINS\src\main\java\bg\blkn\smartins\controller\RegistrationController.java
+D:\JAVAPROJECTS\SmartINS\src\main\java\bg\blkn\smartins\repos\UserRepo.java
+D:\JAVAPROJECTS\SmartINS\src\main\java\bg\blkn\smartins\controller\MainController.java
 D:\JAVAPROJECTS\SmartINS\src\main\java\bg\blkn\smartins\domain\Policy.java

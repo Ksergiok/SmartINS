@@ -16,17 +16,19 @@ public class MainController {
     @Autowired
     private PolicyRepo policyRepo;
 
-    @GetMapping(path ="/")
+    @GetMapping(path = "/")
     public String greeting(Map<String, Object> model) {
         return "greeting";
     }
-    
-    @GetMapping(path ="/main")
+
+    @GetMapping(path = "/main")
     public String main(Map<String, Object> model) {
+        Iterable<Policy> policies = policyRepo.findAll();
+        model.put("policies", policies);
         return "main";
     }
 
-    @PostMapping(path ="/addPolicy")
+    @PostMapping(path = "/addPolicy")
     public String addPolicy(
             @RequestParam String type,
             @RequestParam String createdAt,

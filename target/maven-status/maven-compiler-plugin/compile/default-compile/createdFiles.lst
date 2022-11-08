@@ -1,6 +1,10 @@
 bg\blkn\smartins\config\MvcConfig.class
-bg\blkn\smartins\config\WebSecurityConfig.class
-bg\blkn\smartins\domain\Policy.class
-bg\blkn\smartins\GreetingController.class
+bg\blkn\smartins\controller\MainController.class
+bg\blkn\smartins\controller\RegistrationController.class
 bg\blkn\smartins\Application.class
+bg\blkn\smartins\domain\authorization\Role.class
+bg\blkn\smartins\config\WebSecurityConfig.class
+bg\blkn\smartins\repos\UserRepo.class
+bg\blkn\smartins\domain\authorization\User.class
+bg\blkn\smartins\domain\Policy.class
 bg\blkn\smartins\repos\PolicyRepo.class
