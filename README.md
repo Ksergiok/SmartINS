@@ -1,4 +1,6 @@
 # SmartINS
-SmartINS
 
-Educational project
+Educational project with:
+Spring
+PostgreSQL
+Mustache
