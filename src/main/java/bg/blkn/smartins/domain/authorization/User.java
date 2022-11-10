@@ -14,6 +14,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.Table;
 
+//Represents DB table record in Java
+
 @Entity
 @Table(name = "usr")
 public class User{

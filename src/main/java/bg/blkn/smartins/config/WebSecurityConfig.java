@@ -39,14 +39,19 @@ public class WebSecurityConfig {
         http
                 .authorizeHttpRequests((requests) -> requests
                 .antMatchers("/").permitAll()
+                .antMatchers("/css/**").permitAll()
                 .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                 .loginPage("/login")
                 .permitAll()
                 )
+                .formLogin((form) -> form
+                .loginPage("/registration")
+                .permitAll(true)
+                )
                 .logout((logout) -> logout.permitAll());
-        
+
         return http.build();
     }
 }
