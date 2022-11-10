@@ -1,0 +1,4 @@
+# SmartINS
+SmartINS
+
+Educational project
