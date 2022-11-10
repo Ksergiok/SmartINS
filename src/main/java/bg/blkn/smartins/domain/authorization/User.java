@@ -31,8 +31,6 @@ public class User{
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
     
-    
-
     public UUID getId() {
         return id;
     }

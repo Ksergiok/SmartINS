@@ -18,9 +18,6 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-/**
- * @author Ksergi0k
- */
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(MainController.class)
 public class MainControllerTest {
@@ -40,7 +37,9 @@ public class MainControllerTest {
 
     @Test
     @WithMockUser
+
     void testGreetingPage() throws Exception {
+
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("greeting"))
