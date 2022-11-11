@@ -5,7 +5,7 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-@PropertySource(value="dbconnection.properties")
+//@PropertySource(value="dbconnection.properties")
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 
@@ -13,5 +13,4 @@ public class MvcConfig implements WebMvcConfigurer {
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/login").setViewName("login");
     }
-
 }

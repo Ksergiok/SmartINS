@@ -43,6 +43,7 @@
             {{#userList}}
             <tr>
                 <td>{{username}}</td>
+                <td>{{roles}}</td>
                 <td>
                     <form method="post" action="/deleteUsetById">
                         <input hidden="true" type="text" name="id" value="{{id}}"/>
