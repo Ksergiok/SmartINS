@@ -1,9 +1,11 @@
 package bg.blkn.smartins.config;
 
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.web.servlet.config.annotation.ViewControllerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
+@PropertySource(value="dbconnection.properties")
 @Configuration
 public class MvcConfig implements WebMvcConfigurer {
 

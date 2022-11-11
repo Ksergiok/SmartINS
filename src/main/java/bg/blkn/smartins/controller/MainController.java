@@ -16,10 +16,15 @@ public class MainController {
     @Autowired
     private PolicyRepo policyRepo;
 
-    @GetMapping(path = "/")
+    @GetMapping(path = "")
     public String greeting(Map<String, Object> model) {
-        return "greeting";
+        return "about";
     }
+        @GetMapping(path = "/about")
+    public String about(Map<String, Object> model) {
+        return "about";
+    }
+    
 
     @GetMapping(path = "/main")
     public String main(Map<String, Object> model) {
@@ -28,6 +33,7 @@ public class MainController {
         return "main";
     }
 
+    //Action add policy
     @PostMapping(path = "/addPolicy")
     public String addPolicy(
             @RequestParam String type,

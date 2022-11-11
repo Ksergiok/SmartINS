@@ -38,17 +38,13 @@ public class WebSecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                .antMatchers("/").permitAll()
                 .antMatchers("/css/**").permitAll()
+//                .antMatchers("/registration").hasRole("ADMIN")
                 .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                 .loginPage("/login")
                 .permitAll()
-                )
-                .formLogin((form) -> form
-                .loginPage("/registration")
-                .permitAll(true)
                 )
                 .logout((logout) -> logout.permitAll());
 

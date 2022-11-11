@@ -9,6 +9,7 @@ import java.util.EnumSet;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -27,6 +28,8 @@ public class RegistrationController {
 
         Set<Role> roles = EnumSet.allOf(Role.class); // У костыля с переменным в ENUM ноги растут отсюда
         model.put("roles", roles);
+        Iterable<User> userList = userRepo.findAll();
+        model.put("userList", userList);
         return "registration";
     }
 
@@ -36,18 +39,41 @@ public class RegistrationController {
 
         if (userFromDb != null) {
             model.put("message", "User exists!");
+            Set<Role> roles = EnumSet.allOf(Role.class); // У костыля с переменным в ENUM ноги растут отсюда
+            model.put("roles", roles);
+            Iterable<User> userList = userRepo.findAll();
+            model.put("userList", userList);
+
             return "registration";
         }
 
         user.setIsActive(true);
 //        user.setRoles(Collections.singleton(USER));
 
-        Set<Role> setRole= new HashSet<>();
+        Set<Role> setRole = new HashSet<>();
         setRole.add(role);
-        
+
         user.setRoles(setRole);
         userRepo.save(user);
 
-        return "redirect:/login";
+        Set<Role> roles = EnumSet.allOf(Role.class); // У костыля с переменным в ENUM ноги растут отсюда
+        model.put("roles", roles);
+
+        Iterable<User> userList = userRepo.findAll();
+        model.put("userList", userList);
+
+        return "registration";
+
+    }
+
+    @PostMapping(path = "/deleteUsetById")
+    public String deleteUsetByName(@RequestParam String id, Map<String, Object> model) {
+        userRepo.deleteById(UUID.fromString(id));
+
+        Set<Role> roles = EnumSet.allOf(Role.class); // У костыля с переменным в ENUM ноги растут отсюда
+        model.put("roles", roles);
+        Iterable<User> userList = userRepo.findAll();
+        model.put("userList", userList);
+        return "registration";
     }
 }

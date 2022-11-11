@@ -42,7 +42,7 @@ public class MainControllerTest {
 
         mockMvc.perform(get("/"))
                 .andExpect(status().isOk())
-                .andExpect(view().name("greeting"))
+                .andExpect(view().name("about"))
                 .andExpect(content().string(containsString("Hello")));
     }
 }

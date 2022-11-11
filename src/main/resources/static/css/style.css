@@ -20,7 +20,19 @@ button{
 
 div{
     display:block;
-    margin: 5px;
+}
+
+nav{
+    margin: 20px 0px;
+}
+
+nav *{
+    display: inline;
+}
+
+nav > form{
+    position: absolute;
+    right: 10px;
 }
 
 *{

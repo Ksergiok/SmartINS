@@ -7,11 +7,19 @@
         <link rel="stylesheet" type="text/css" href="/css/style.css" />
     </head>
     <body>
-        <div>        
+        <nav class="menu">
+            <ul>
+                <li><a href="/about">About</a></li>
+                <li><a href="/main">Main</a></li>
+                <li><a href="/registration">Administration</a></li>
+            </ul>
             <form action="/logout" method="post">
                 <input type="submit" value="Sign Out"/>
                 <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
-            </form>
+            </form>            
+        </nav>
+        <div>        
+
         </div>
         <div>
             <form method="post" acceptCharset="UTF-8" action="/addPolicy">
