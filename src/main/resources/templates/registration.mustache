@@ -11,6 +11,7 @@
                 <li><a href="/main">Main</a></li>
                 <li><a href="/registration">Administration</a></li>
             </ul>
+            <div>{{username}}</div>
             <form action="/logout" method="post">
                 <input type="submit" value="Sign Out"/>
                 <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>

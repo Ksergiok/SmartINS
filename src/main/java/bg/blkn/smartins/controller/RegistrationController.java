@@ -12,6 +12,7 @@ import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -24,7 +25,7 @@ public class RegistrationController {
     private UserRepo userRepo; // -> Аннотация генерит констуктор, который принимает аркумент объект класса UserRepo?
 
     @GetMapping(path = "/registration")
-    public String registration(Map<String, Object> model) {
+    public String registration(Authentication authentication, Map<String, Object> model) {
 
         Set<Role> roles = EnumSet.allOf(Role.class); // У костыля с переменным в ENUM ноги растут отсюда
         model.put("roles", roles);

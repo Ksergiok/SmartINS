@@ -5,6 +5,7 @@ import bg.blkn.smartins.repos.PolicyRepo;
 import java.util.Map;
 import java.util.UUID;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -16,20 +17,24 @@ public class MainController {
     @Autowired
     private PolicyRepo policyRepo;
 
+
     @GetMapping(path = "")
-    public String greeting(Map<String, Object> model) {
+    public String greeting(Authentication authentication, Map<String, Object> model) {
+        model.put("username", authentication.getName());
         return "about";
     }
-        @GetMapping(path = "/about")
-    public String about(Map<String, Object> model) {
+    @GetMapping(path = "/about")
+    public String about(Authentication authentication, Map<String, Object> model) {
+        model.put("username", authentication.getName());
         return "about";
     }
     
 
     @GetMapping(path = "/main")
-    public String main(Map<String, Object> model) {
+    public String main(Authentication authentication, Map<String, Object> model) {
         Iterable<Policy> policies = policyRepo.findAll();
         model.put("policies", policies);
+        model.put("username", authentication.getName());
         return "main";
     }
 
