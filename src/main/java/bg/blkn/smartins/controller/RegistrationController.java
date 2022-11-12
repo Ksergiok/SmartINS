@@ -1,22 +1,16 @@
 package bg.blkn.smartins.controller;
 
 import bg.blkn.smartins.domain.authorization.Role;
-import static bg.blkn.smartins.domain.authorization.Role.USER;
 import bg.blkn.smartins.domain.authorization.User;
 import bg.blkn.smartins.repos.UserRepo;
-import java.util.Collections;
-import java.util.EnumSet;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Set;
-import java.util.UUID;
-import java.util.stream.Collectors;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+
+import java.util.*;
 
 @Controller
 public class RegistrationController {
