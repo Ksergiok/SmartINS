@@ -1,7 +1,5 @@
 package bg.blkn.smartins.domain.authorization;
 
-import org.springframework.security.core.GrantedAuthority;
-
 /**
  *
  * @author Ksergi0k

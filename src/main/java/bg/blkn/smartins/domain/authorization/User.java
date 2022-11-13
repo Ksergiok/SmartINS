@@ -39,6 +39,7 @@ public class User implements UserDetails {
         return id;
     }
 
+    @Override
     public String getUsername() {
         return username;
     }
@@ -47,6 +48,7 @@ public class User implements UserDetails {
         this.username = username;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -71,25 +73,29 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    @Override
-    public Collection<? extends GrantedAuthority> getAuthorities() {
-        GrantedAuthority grantedAuthority = new GrantedAuthority() {
-            @Override
-            public String getAuthority() {
+    /**
+     *
+     * @return
+     */
+//    @Override
+//    public Collection<? extends GrantedAuthority> getAuthorities() {
+//        GrantedAuthority grantedAuthority = new GrantedAuthority() {
+//            @Override
+//            public String getAuthority() {
 //                if (roles.contains(Role.ADMIN)) {
-                    return "ROLE_ADMIN";
+//                    return "ROLE_ADMIN";
 //                } else if (roles.contains(Role.USER)) {
 //                    return "ROLE_USER";
 //                } else {
 //                    return "";
 //                }
-            }
-
-        };
-        Set<GrantedAuthority> grantedAuthoritySet = new HashSet<>();
-        grantedAuthoritySet.add(grantedAuthority);
-        return grantedAuthoritySet;
-    }
+//            }
+//
+//        };
+//        Set<GrantedAuthority> grantedAuthoritySet = new HashSet<>();
+//        grantedAuthoritySet.add(grantedAuthority);
+//        return grantedAuthoritySet;
+//    }
 
     @Override
     public boolean isAccountNonExpired() {
@@ -109,6 +115,11 @@ public class User implements UserDetails {
     @Override
     public boolean isEnabled() {
         return true;
+    }
+
+    @Override
+    public Collection<? extends GrantedAuthority> getAuthorities() {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
     }
 
 }

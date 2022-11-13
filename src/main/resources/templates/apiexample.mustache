@@ -1,9 +1,12 @@
-<!DOCTYPE HTML>
-<head> 
-    <title>Getting Started: Serving Web Content</title> 
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <link rel="stylesheet" type="text/css" href="/css/style.css" />
-</head>
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta charset="utf-8"">
+        <title>SmartINS</title>
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    </head>
+    <body>
         <nav class="menu">
             <ul>
                 <li><a href="/about">About</a></li>
@@ -17,8 +20,8 @@
                 <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
             </form>            
         </nav>
-<body>
-    <div>Hello, username</div>
-    <a href ="/main">Main page</a>
-</body>
+        <div>        
+{{pokemon}}
+        </div>
+    </body>
 </html>
