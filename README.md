@@ -3,4 +3,6 @@
 Educational project with:\
 Spring\
 PostgreSQL\
-Mustache*
+Mustache
+
+Insutance broker system
