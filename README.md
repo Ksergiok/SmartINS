@@ -3,4 +3,4 @@
 Educational project with:\
 Spring\
 PostgreSQL\
-Mustache\
+Mustache
