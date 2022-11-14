@@ -1,5 +1,6 @@
 package bg.blkn.smartins.controller;
 
+import bg.blkn.smartins.config.MvcConfig;
 import bg.blkn.smartins.domain.authorization.User;
 import bg.blkn.smartins.repos.PolicyRepo;
 import org.junit.jupiter.api.BeforeEach;
@@ -19,9 +20,12 @@ import org.springframework.web.context.WebApplicationContext;
 import java.util.Collection;
 
 import static org.hamcrest.Matchers.containsString;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.context.annotation.Bean;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import org.springframework.web.client.RestTemplate;
 
 @ExtendWith(SpringExtension.class)
 @WebMvcTest(MainController.class)
@@ -33,33 +37,23 @@ public class MainControllerTest {
     @MockBean
     private PolicyRepo policyRepo;
 
+    @MockBean
+    private RestTemplate restTemplate;
+    
     private MockMvc mockMvc;
 
     @BeforeEach
     public void setUp() {
         mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).apply(springSecurity()).build();
     }
-
+    
     @Test
     @WithMockUser
     void testGreetingPage() throws Exception {
-
-        mockMvc.perform(get("/"))
+        mockMvc.
+                perform(get("/about"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("about"))
                 .andExpect(content().string(containsString("Hello")));
     }
-
-    @Test
-    @WithMockUser
-    public void testGetRole() {
-        User user = new User();
-
-        Collection<? extends GrantedAuthority> authorities = user.getAuthorities();
-        GrantedAuthority authoritiesArray = (GrantedAuthority) authorities.toArray()[0];
-
-        System.out.println("TESTED ROLE: " + authoritiesArray.getAuthority());
-        Assert.isTrue("ROLE_ADMIN".equals(authoritiesArray.getAuthority()), "False");
-    }
-
 }
