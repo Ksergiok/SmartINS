@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <title>Spring Security Example </title>
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    </head>
+    <body>
+        <nav class="menu">
+            <ul>
+                <li><a href="/about">About</a></li>
+                <li><a href="/policies">Policies</a></li>
+                <li><a href="/registration">Administration</a></li>
+                <li><a href="/apiexample">Api Client</a></li>
+            </ul>
+            <div th:text = "${username}"/>
+            <form action="/logout" method="post">
+                <input type="submit" value="Sign Out"/>
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            </form>            
+        </nav>
+        <!--        ${message}-->
+        <form action="/registration" method="post">
+            <div><label> User Name : <input type="text" name="username"/></label></div>
+            <div><label> Password: <input type="password" name="password"/></label></div>
+            <div>
+                <label> Role: 
+                    <select name="role">
+                        <option th:each = "roles:${roles}"th:value="${roles.name}" th:text="${roles.name}"></option>
+                        <!--Реализация костыля с переменной name в ENUM-->
+                    </select>
+                </label>
+            </div>
+            <div><button type="submit" value="Add">Add</button><span th:if="message != null" th:text="${message}"/></div>
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+        </form>
+        <div>
+            <table>
+                <tr th:each="userList : ${userList}">
+                    <td th:text="${userList.username}"></td>
+                    <td th:text="${userList.roles}"></td>
+                    <td>
+                        <form method="post" action="/deleteUsetById">
+                            <input hidden="true" type="text" name="id" th:value="${userList.id}"/>
+                            <button type="submit">Delete</button>
+                            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                            <input type="hidden" name="_method" value="DELETE"/>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+    </body>
+</html>
