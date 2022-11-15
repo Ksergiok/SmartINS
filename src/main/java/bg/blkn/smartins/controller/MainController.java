@@ -2,9 +2,18 @@ package bg.blkn.smartins.controller;
 
 import bg.blkn.smartins.domain.Policy;
 import bg.blkn.smartins.repos.PolicyRepo;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Map;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import org.hibernate.annotations.Parameter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -35,7 +44,7 @@ public class MainController {
 
     @GetMapping(path = "/policy/{id}")
     public String getPolicyById(Authentication authentication, @PathVariable("id") String id, Map<String, Object> model) {
-        Policy policy  = policyRepo.findById(UUID.fromString(id)).get();
+        Policy policy = policyRepo.findById(UUID.fromString(id)).get();
         model.put("id", policy.getId());
         model.put("type", policy.getType());
         model.put("createdAt", policy.getCreatedAt());
@@ -57,13 +66,26 @@ public class MainController {
     public String addPolicy(Authentication authentication,
             @RequestParam String type,
             @RequestParam String createdAt,
+            @RequestParam String editedAt,
             Map<String, Object> model) {
-        Policy policy = new Policy(type, createdAt);
-        policyRepo.save(policy);
-        Iterable<Policy> policies = policyRepo.findAll();
-        model.put("policies", policies);
-        model.put("username", authentication.getName());
-        return "redirect:/policies";
+        try {
+            Date editedAtDate;
+            if (editedAt.equals("")) {
+                editedAtDate = null;
+            } else {
+                DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+                editedAtDate = format.parse(editedAt);
+            }
+            Policy policy = new Policy(type, createdAt, editedAtDate);
+            policyRepo.save(policy);
+            Iterable<Policy> policies = policyRepo.findAll();
+            model.put("policies", policies);
+            model.put("username", authentication.getName());
+            return "redirect:/policies";
+        } catch (ParseException ex) {
+            Logger.getLogger(MainController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "redirect:policies";
     }
 
     @DeleteMapping("/deleteAll")
@@ -76,7 +98,7 @@ public class MainController {
     }
 
     @DeleteMapping("/deletePolicyById")
-    public String deletePolicyById(Authentication authentication,@RequestParam String id, Map<String, Object> model) {
+    public String deletePolicyById(Authentication authentication, @RequestParam String id, Map<String, Object> model) {
         policyRepo.deleteById(UUID.fromString(id));
         Iterable<Policy> policies = policyRepo.findAll();
         model.put("policies", policies);
