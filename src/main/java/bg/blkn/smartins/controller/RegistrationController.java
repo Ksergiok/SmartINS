@@ -17,6 +17,7 @@ public class RegistrationController {
 
     @Autowired
     private UserRepo userRepo;
+    
 
     @GetMapping(path = "/registration")
     public String registration(Authentication authentication, Map<String, Object> model) {
@@ -26,7 +27,7 @@ public class RegistrationController {
         Iterable<User> userList = userRepo.findAll();
         model.put("userList", userList);
         model.put("username", authentication.getName());
-        return "registration";
+        return "registration/registration";
     }
 
     @PostMapping(path = "/registration")
@@ -40,7 +41,7 @@ public class RegistrationController {
             Iterable<User> userList = userRepo.findAll();
             model.put("userList", userList);
             model.put("username", authentication.getName());
-            return "registration";
+            return "registration/registration";
         }
 
         user.setIsActive(true);
@@ -59,7 +60,7 @@ public class RegistrationController {
         model.put("userList", userList);
         model.put("username", authentication.getName());
 
-        return "registration";
+        return "registration/registration";
 
     }
 
@@ -72,6 +73,6 @@ public class RegistrationController {
         Iterable<User> userList = userRepo.findAll();
         model.put("userList", userList);
         model.put("username", authentication.getName());
-        return "registration";
+        return "registration/registration";
     }
 }
