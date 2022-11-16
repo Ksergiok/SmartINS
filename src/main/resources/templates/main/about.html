@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head> 
+        <title>Getting Started: Serving Web Content</title> 
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    </head>
+
+    <body>
+
+        <nav class="menu">
+            <ul>
+                <li><a href="/about">About</a></li>
+                <li><a href="/policies">Policies</a></li>
+                <li th:if="${adminPageNavLink}" ><a th:href="${adminPageNavLink}" th:text="${adminPageNavName}"/></li>
+                <li><a href="/apiexample">Api Client</a></li>
+            </ul>
+            <div th:text="${username}"></div>
+            <form action="/logout" method="post">
+                <input type="submit" value="Sign Out"/>
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            </form>            
+        </nav>
+
+        <div>Hello, username</div>
+        <span th:text="${role}"/>
+        <a href ="/policies">Policies page</a>
+    </body>
+</html>
