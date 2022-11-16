@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta charset="utf-8">
+        <title>SmartINS</title>
+        <link rel="stylesheet" type="text/css" href="/css/style.css"/>
+    </head>
+    <body>
+        <nav class="menu">
+            <a href="/about"><img src="/images/logo.png" alt="Logo" href="/about"/></a>
+            <ul>
+                <li><a href="/about">About</a></li>
+                <li><a href="/policies">Policies</a></li>
+                <li><a href="/registration">Administration</a></li>
+                <li><a href="/apiexample">Api Client</a></li>
+            </ul>
+            <form action="/logout" method="post">
+                <div th:text="${username}"></div>   
+                <input type="submit" value="Sign Out"/>
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            </form>            
+        </nav>
+
+        <div>
+            <form method="post" acceptCharset="UTF-8" action="/addPolicy">
+                <select type="text" name="type" placeholder="Policy Type">
+                    <option th:each = "policyTypes:${policyTypes}"th:value="${policyTypes.type}" th:text="${policyTypes.type}"/>
+                </select>
+                <input type="date" name="createdAt"/>
+                <input type="date" name="editedAt"/>
+                <textarea type="text" name="comments" placeholder="Comments"></textarea>
+                <button type="submit">Add policy</button>
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            </form>
+        </div>
+        <div>Policies list</div>
+
+        <form method="post" action="deleteAll">
+            <button type="submit">Delete all</button>
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            <input type="hidden" name="_method" value="DELETE"/>
+        </form>
+
+        <form method="post" action="filter">
+            <input type="text" name="type">
+            <button type="submit">Найти</button>
+            <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+        </form>
+        <table>
+            <tr th:each="policies:${policies}">
+                <!--<td>{{id}}</td>-->
+                <td><a th:href = "@{'/policy/'+ ${policies.id}}" th:text="${policies.type}"></a></td>
+                <td th:text="${policies.createdAt}"/>
+                <td th:text="${policies.editedAt}"/>
+                <td>
+                    <form method="post" action="deletePolicyById">
+                        <input hidden="true" type="text" name="id" th:value="${policies.id}"/>
+                        <button type="submit">Delete</button>
+                        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                        <input type="hidden" name="_method" value="DELETE"/>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>
