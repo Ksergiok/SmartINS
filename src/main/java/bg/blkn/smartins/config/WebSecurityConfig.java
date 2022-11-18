@@ -61,6 +61,7 @@ public class WebSecurityConfig {
 //                .httpBasic(Customizer.withDefaults())
 //                .userDetailsService(smartInsUserDetailsService)
                   .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                .httpBasic(Customizer.withDefaults()) // выдаёт токены но ломает форму логина
                 .logout(LogoutConfigurer::permitAll);
 
         return http.build();
