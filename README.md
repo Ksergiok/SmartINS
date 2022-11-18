@@ -3,7 +3,8 @@
 Educational project with:\
 Spring\
 PostgreSQL\
-Thymeleaf
+Thymeleaf\
+JWT\
 
 
 To-Do:
