@@ -1,5 +1,11 @@
 package bg.blkn.smartins.config;
 
+import com.nimbusds.jose.jwk.JWK;
+import com.nimbusds.jose.jwk.JWKSet;
+import com.nimbusds.jose.jwk.RSAKey;
+import com.nimbusds.jose.jwk.source.ImmutableJWKSet;
+import com.nimbusds.jose.jwk.source.JWKSource;
+import com.nimbusds.jose.proc.SecurityContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -16,20 +22,17 @@ import org.springframework.security.web.SecurityFilterChain;
 
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.oauth2.jwt.JwtDecoder;
+import org.springframework.security.oauth2.jwt.JwtEncoder;
 import org.springframework.security.oauth2.jwt.NimbusJwtDecoder;
+import org.springframework.security.oauth2.jwt.NimbusJwtEncoder;
 
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class WebSecurityConfig {
 
-//    private final RsaKeyProperties rsaKeys;
-//    public WebSecurityConfig(bg.blkn.smartins.config.RsaKeyProperties rsaKeys) {
-//        this.rsaKeys = rsaKeys;
-//    }
-    
-    
-    
+    @Autowired
+    private  RsaKeyProperties rsaKeys;
 
     @Autowired
     UserDetailsService smartInsUserDetailsService;
@@ -45,9 +48,10 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
+                .csrf(csfr -> csfr.disable() )
                 .authorizeRequests((requests) -> requests
                     .antMatchers("/css/**").permitAll()
-                    .antMatchers("/api/v1/login").permitAll()
+                    .antMatchers("/api/v1/token").permitAll()
    //                 .antMatchers("/registration").hasRole("ADMIN") //Replaced with @PreAuthorize annotation on methods
                     .anyRequest().authenticated()
                 )
@@ -56,14 +60,21 @@ public class WebSecurityConfig {
                 )
 //                .httpBasic(Customizer.withDefaults())
 //                .userDetailsService(smartInsUserDetailsService)
-//                  .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
+                  .oauth2ResourceServer(OAuth2ResourceServerConfigurer::jwt)
                 .logout(LogoutConfigurer::permitAll);
 
         return http.build();
     }
     
-//    @Bean
-//    JwtDecoder jwtDecoder(){
-//        return NimbusJwtDecoder.withPublicKey(rsaKeys.publicKey()).build();
-//    }
+    @Bean
+    JwtDecoder jwtDecoder(){
+        return NimbusJwtDecoder.withPublicKey(rsaKeys.publicKey()).build();
+    }
+    
+    @Bean
+    JwtEncoder jwtEncoder(){
+        JWK jwk = new RSAKey.Builder(rsaKeys.publicKey()).privateKey(rsaKeys.privateKey()).build();
+        JWKSource<SecurityContext> jwks = new ImmutableJWKSet<>(new JWKSet(jwk));
+        return new NimbusJwtEncoder(jwks);
+    }
 }

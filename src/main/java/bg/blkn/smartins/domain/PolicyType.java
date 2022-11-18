@@ -14,7 +14,7 @@ import javax.persistence.OneToOne;
 @Entity
 public class PolicyType {
     @Id
-    @GeneratedValue(strategy = GenerationType.TABLE)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE)
     int id;
            
 //    @OneToOne(mappedBy = "type")
@@ -22,10 +22,6 @@ public class PolicyType {
 
     public int getId() {
         return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
     }
 
     public String getType() {

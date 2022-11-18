@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta charset="utf-8">
+        <title>SmartINS</title>
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+
+        <script type="text/javascript">
+            $(function loadSearchResult() {
+                $.ajax({
+                    type: 'get',
+                    url: /*[[ @{'/searchByKey'} ]]*/,
+                    success: function (data) {
+                        /*<![CDATA[*/
+                        $('.search_list').html(data);
+                        /*]]>*/
+                    },
+                })
+            });
+        </script>
+
+    </head>
+    <body>
+        <nav class="menu">
+            <a href="/about"><img src="/images/logo.png" alt="Logo" href="/about"/></a>
+            <ul>
+                <li><a href="/about">About</a></li>
+                <li><a href="/policies">Policies</a></li>
+                <li><a href="/registration">Administration</a></li>
+                <li><a href="/apiexample">Api Client</a></li>
+            </ul>
+            <form action="/logout" method="post">
+                <input type="submit" value="Sign Out"/>
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            </form>            
+        </nav>
+
+
+
+        <button class="btn btn-primary btn-sm"
+                th:onclick="'loadSearchResult();'">Search</button>
+        <div class="row">
+
+
+            <div class="col-md-12 search_list">
+                <div class="table-responsive" th:fragment="search_list">
+                    <table
+                        class="table  table-bordered ">
+                        <thead>
+                        </thead>
+                        <tbody>
+                            <tr th:each="policies:${policies}">
+                                <td>{{id}}</td>
+                                <td><a th:href = "@{'/policy/'+ ${policies.id}}" th:text="${policies.type}"></a></td>
+                                <td th:text="${policies.createdAt}"/>
+                                <td th:text="${policies.editedAt}"/>
+                                <td>
+                                    <form method="post" action="deletePolicyById">
+                                        <input hidden="true" type="text" name="id" th:value="${policies.id}"/>
+                                        <button type="submit">Delete</button>
+                                        <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                                        <input type="hidden" name="_method" value="DELETE"/>
+                                    </form>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+
+
+
+                    </body>
+                    </html>

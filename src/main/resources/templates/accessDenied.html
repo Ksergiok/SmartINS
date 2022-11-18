@@ -1,27 +1,27 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-        <meta charset="utf-8"">
+        <meta charset="utf-8">
         <title>SmartINS</title>
         <link rel="stylesheet" type="text/css" href="/css/style.css" />
     </head>
     <body>
         <nav class="menu">
+            <img src="/images/logo.png" alt="Logo" />
             <ul>
                 <li><a href="/about">About</a></li>
-                <li><a href="/main">Main</a></li>
+                <li><a href="/policies">Policies</a></li>
                 <li><a href="/registration">Administration</a></li>
                 <li><a href="/apiexample">Api Client</a></li>
             </ul>
-            <div>{{username}}</div>
             <form action="/logout" method="post">
                 <input type="submit" value="Sign Out"/>
-                <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
             </form>            
         </nav>
         <div>        
-{{pokemon}}
+            <hi>You do not have enought permission to access this page</h1>
         </div>
     </body>
 </html>

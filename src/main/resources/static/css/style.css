@@ -35,6 +35,10 @@ nav > form{
     right: 10px;
 }
 
+img{
+    width: 40px;
+}
+
 *{
     font-family: monospace;
     margin: 5px;

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml">
+<html xmlns:th="http://www.thymeleaf.org">
     <head>
-        <title>Spring Security Example </title>
+        <title>SmartINS</title>
         <link rel="stylesheet" type="text/css" href="/css/style.css" />
     </head>
     <body>
@@ -14,7 +14,7 @@
                     <button type="submit">Sign In</button>
                     <a href="/registration">Registration<a>
                 </div>
-                <input type="hidden" name="_csrf" value="{{_csrf.token}}"/>
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
             </form>
             
         </div>

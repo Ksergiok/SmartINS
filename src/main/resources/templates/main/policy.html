@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+        <meta charset="utf-8">
+        <title>SmartINS</title>
+        <link rel="stylesheet" type="text/css" href="/css/style.css" />
+    </head>
+    <body>
+        <nav class="menu">
+            <a href="/about"><img src="/images/logo.png" alt="Logo" href="/about"/></a>
+            <ul>
+                <li><a href="/about">About</a></li>
+                <li><a href="/policies">Policies</a></li>
+                <li><a href="/registration">Administration</a></li>
+                <li><a href="/apiexample">Api Client</a></li>
+            </ul>
+            <form action="/logout" method="post">
+                <div th:text="${username}"/>
+                <input type="submit" value="Sign Out"/>
+                <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+            </form>            
+        </nav>
+        <div>        
+        </div>
+        
+        <div>    
+            <table>
+                <tr>
+                <p><b>UUID: </b> <span th:text = "${policy.id}"/></p>
+                <p><b>Type: </b> <span th:text = "${policy.type}"/></p>
+                <p><b>Created at: </b> <span th:text = "${policy.createdAt}"/></p>
+                <p><b>Edited at: </b> <span th:text = "${policy.editedAt}"/></p>
+                <form method="post" action="../deletePolicyById">
+                    <input hidden="true" type="text" name="id" th:value="${policy.id}"/>
+                    <button type="submit">Delete</button>
+                    <input type="hidden" name="_csrf" th:value="${_csrf.token}"/>
+                    <input type="hidden" name="_method" value="DELETE"/>
+                </form>
+                </tr>
+            </table>
+    </body>
+</html>

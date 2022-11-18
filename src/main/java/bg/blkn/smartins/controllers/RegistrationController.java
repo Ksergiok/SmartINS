@@ -11,7 +11,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.*;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 
 @Controller
 public class RegistrationController {
@@ -19,14 +21,19 @@ public class RegistrationController {
     @Autowired
     private UserRepo userRepo;
 
+    @ModelAttribute("username")
+    public String putUserNameToModel(Authentication authentication){
+        return authentication.getName();
+    }
+    
     @GetMapping(path = "/registration")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public String registration(Authentication authentication, Map<String, Object> model) {
 
         Set<Role> roles = EnumSet.allOf(Role.class); // У костыля с переменным в ENUM ноги растут отсюда
         model.put("roles", roles);
         Iterable<User> userList = userRepo.findAll();
         model.put("userList", userList);
-        model.put("username", authentication.getName());
         return "registration/registration";
     }
 
@@ -40,7 +47,7 @@ public class RegistrationController {
             model.put("roles", roles);
             Iterable<User> userList = userRepo.findAll();
             model.put("userList", userList);
-            model.put("username", authentication.getName());
+
             return "registration/registration";
         }
 
@@ -59,8 +66,6 @@ public class RegistrationController {
 
         Iterable<User> userList = userRepo.findAll();
         model.put("userList", userList);
-        model.put("username", authentication.getName());
-
         return "registration/registration";
 
     }

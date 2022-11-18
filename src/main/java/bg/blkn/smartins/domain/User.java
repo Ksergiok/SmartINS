@@ -1,7 +1,6 @@
-package bg.blkn.smartins.domain.authorization;
+package bg.blkn.smartins.domain;
 
 import java.util.Collection;
-import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import javax.persistence.CollectionTable;
@@ -34,11 +33,13 @@ public class User implements UserDetails {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
+    
+    public User(){}
 
     public UUID getId() {
         return id;
     }
-
+    
     @Override
     public String getUsername() {
         return username;
@@ -73,30 +74,6 @@ public class User implements UserDetails {
         this.roles = roles;
     }
 
-    /**
-     *
-     * @return
-     */
-//    @Override
-//    public Collection<? extends GrantedAuthority> getAuthorities() {
-//        GrantedAuthority grantedAuthority = new GrantedAuthority() {
-//            @Override
-//            public String getAuthority() {
-//                if (roles.contains(Role.ADMIN)) {
-//                    return "ROLE_ADMIN";
-//                } else if (roles.contains(Role.USER)) {
-//                    return "ROLE_USER";
-//                } else {
-//                    return "";
-//                }
-//            }
-//
-//        };
-//        Set<GrantedAuthority> grantedAuthoritySet = new HashSet<>();
-//        grantedAuthoritySet.add(grantedAuthority);
-//        return grantedAuthoritySet;
-//    }
-
     @Override
     public boolean isAccountNonExpired() {
         return true;
@@ -119,7 +96,6 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+        return roles;
     }
-
 }
